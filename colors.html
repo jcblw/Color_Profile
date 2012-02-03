@@ -1,0 +1,460 @@
+<!doctype html public "Totally HTML 5">
+<meta charset=utf-8>
+<title>Colors</title>
+<style type="text/css">
+    
+    .wrp{
+        width: 800px;
+        padding: 0;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    .img_scroll{
+        width: 100%;
+    }
+    
+    .img_scroll img{
+        max-width: 100%;
+    }
+    
+    .color_form{
+        width: 230px;
+        margin: 0 auto;
+    }
+    
+    .color_preview{
+        margin: 0 10px;
+        height: 25px;
+        width: 25px;
+        float: left;
+    }
+    
+    .color_select{
+        float: left;
+    }
+    
+    .color_back, .color_next{
+        margin: 5px 20px;
+        cursor: pointer;
+        color: #006;
+    }
+    
+    .color_back:hover, .color_next:hover{
+        text-decoration: underline;
+    }
+    
+    .color_back{
+        float: left;
+    }
+    
+    .color_next{
+        float: right;
+    }
+    
+    .clear{
+        clear: both;
+        height: 25px;
+    }
+</style>
+
+<link rel="stylesheet" media="screen" href="zoomy.css" />
+<!--
+
+TODO: create hover over effect on pencils that on color hover show tool tip with large block of color, use color chart above
+
+TODO : Create a function that will check if each question is answered
+create an array of missing answers.
+then go back to the first missing answer
+and only diplay message on answers that are missing.
+
+TODO: After all the colors a filled out, and the last question is passed show a form with the basic contact info.
+
+TODO: After final validation of infomation on cantact form shoot to the mail script
+
+TODO: Get Zoomy to work!
+
+TODO: Grab a mail script and create a custom email that will show colors in email.
+
+-->
+
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+  
+  <script>
+    //JSON For Inputs
+    var color_form = {
+        current : null,
+        colors : [
+            'cfb941',
+            'cca34b',
+            'bc884f',
+            'c36620',
+            '517432',
+            'b8bb6c',
+            '9cbc7b',
+            '84bea5',
+            'a3bb5b',
+            '679a4f',
+            '357459',
+            '3e7f47',
+            '1f3523',
+            '30332c',
+            '343c3e',
+            '1b2f26',
+            '1e392a',
+            '9d3824',
+            'b44228',
+            'b63a22',
+            '9c2022',
+            '721b14',
+            '7e1c1b',
+            '771c25',
+            '3c655d',
+            '5a8e99',
+            '376f80',
+            '3c5d7e',
+            '446986',
+            '5c88a5',
+            '4f6191',
+            '495d66',
+            '314079',
+            '5b9acd',
+            '0c0f1d',
+            '292b40',
+            '262535',
+            '2f3c70',
+            '293a68',
+            '734760',
+            '433d63' ,
+            '805c80',
+            '3b3050',
+            '261b23',
+            '332630',
+            'ac7c94',
+            'b37978',
+            'b77080',
+            'b65868',
+            'aa454d',
+            'b44d6b',
+            'bf6f96',
+            '944d77',
+            '86324a',
+            '4a1d32',
+            '381114',
+            '540d11',
+            '561a1c',
+            '531f23',
+            '371315',
+            '4e1b18',
+            '452018',
+            '673127',
+            '40251a',
+            '3c3022',
+            '43322b',
+            '201b1d',
+            '896f4e',
+            'b27a61',
+            'bd9d84',
+            'bda28d',
+            'd8d0a3',
+            'e6e2e1',
+            'aeaeae',
+            '82878d',
+            'b8c6c9',
+            '7a7f83',
+            '5b646b',
+            '343d42',
+            '282e2e',
+            '232323',
+            '190d11',
+            '000000'
+            
+        ],
+        pos : [6,13,22,32,40,50,58,66,76,87,92,101,110,119,127,135,143,151,160,168,176,185,195,203,212,222,232,243,252,261,271,280,290,300,309,319,330,340,347,357,366,376,386,396,404,412,422,431,440,450,458,467,476,485,496,507,514,523,533,543,553,561,572,581,592,602,611,620,629,639,649,660,671,680,690,701,711,720,731,741,751,761,769],
+        sections : [
+            {
+               title: 'Past',
+               desc: 'If your Primary Color for the question does not quite fulfill your answer you may choose up to three more colors.',
+               questions : [
+                  'What Color touched you as you were born?',
+                  'This Color describes your early years.',
+                  'These Colors relate to your uniqueness.',
+                  'Choose the Color you would like to color all your dreams.',
+                  'What Colors speak of your challenges?',
+                  'What Colors to you represent Change?',
+                  'What Colors that entice you?'
+               ]
+            },
+            {
+               title: 'Present',
+               desc: 'Next Please Choose 4 Colors',
+               questions : [
+                  'Colors of implementation.',
+                  'Colors that give me a sense of fulfillment.',
+                  'The Color you feel at this moment if you could you would become.',
+                  'What Color is calling you today?',
+               ]
+            },
+            {
+               title: 'Future',
+               desc: 'Next Please Choose 4 Colors',
+               questions : [
+                  'A Color that will elevate your thinking.',
+                  'This Color brings understanding.',
+                  'Within this Color I feel security.',
+                  'My spiritual wisdom, and mental integrity is released through these Colors.',
+                  'I value this Color ',
+                  'INTELLECTUAL ACTIVITY',
+                  'PHYSICAL HEALTH',
+                  'SPIRITUAL ATTUNEMENT',
+                  'EMOTIONAL BALANCE'
+               ]
+            },
+        ],
+        data : [],
+    };
+  </script>
+    <div class="wrp">
+        <div class="img_scroll">
+            <a class="zoom" href="http://www.starreflections.com/oldsite/images/pencils.jpg">
+            <img src="http://www.starreflections.com/oldsite/images/pencils.jpg" />
+            </a>
+        </div>
+        <div class="color_current"></div>
+        <h3 class="color_title"></h3>
+        <span class="color_desc"></span>
+        <h2 class="color_question"></h2>
+        <div class="color_form">
+      
+        </div>
+        <div class="clear"></div>
+        <div class="color_back"> &lt;-Back</div>
+        <div class="color_next"> Next-&gt;</div>
+    </div>
+  <script  src="js/zoomy.js" ></script>
+  <script defer>
+    (function($){
+        
+        
+        
+        var data = color_form,
+            storage = data.data,
+            current = data.current,
+            colorNum,
+            validateColorData = function(){
+                
+                var missing = [];
+                
+                //Loop through all sections
+                for(var i = 0; i < data.sections.length; i += 1){
+                    //Loop through all questions
+                    for(var p = 0; p < data.sections[i].questions.length; p += 1){
+                        if(typeof storage[i] === 'undefined'|| typeof storage[i][p] === 'undefined'){
+                            missing.push([i,p]);
+                        }
+                    }
+                }
+                
+                return missing;
+            }
+            storeData = function(x, y){
+                if(typeof storage[x] === 'undefined'){
+                    storage[x] = [];
+                }
+                
+                var ele = $('.color_select'),
+                        val = ele.find('option:selected').val();
+                        
+                
+                storage[x][y] = parseFloat(val);
+            }
+            bindPreview = function(){
+                $('.color_select').bind('change', function(){
+            
+                   // console.log('change color');  
+                
+                    var ele = $(this),
+                    val = ele.find('option:selected').val(),
+                    rel = ele.attr('rel'),
+                    curParse = rel.split('-'),
+                    color;
+                    
+                    curParse = [parseFloat(curParse[0]), parseFloat(curParse[1])];                    
+                    
+                    colorNum = val;
+                    
+                    val = parseFloat(val) - 1;
+                
+                    color = '#' + color_form.colors[val];
+                    
+                    $('.color_preview[rel=' + rel +']').css({background: color});
+                    
+                    storeData(curParse[0], curParse[1]);
+                    
+                });
+            },
+            showQuestion = function(x, y){
+                
+                
+                $('.color_question').html(data.sections[x].questions[y]);
+               
+               
+               /* TODO make a check to see if there is data stored for this question
+                 *===========================================
+                 * If the data is found the the form shows data represented as if it was reselected
+                 * 
+                 *
+                */
+               var selected = false, value, calc
+                template_form = function(){
+                    
+                    
+                    if(typeof storage[x] !== 'undefined' && typeof storage[x][y] !== 'undefined'){
+                        selected = true;
+                        value = storage[x][y];
+                    }else{
+                        selected = false;
+                    }
+                    
+                    calc = (selected) ? '' : 'selected' 
+                    
+                    var options = ['<option value=" null " ' + calc + '>Please Choose a Number</option>'];
+                    
+                    for(var i = 0; i < data.colors.length; i += 1){
+                        var num = i + 1;
+                        
+                        calc = (selected && num === value) ? 'selected' : '';
+                        //console.log(num);
+                        options.push('<option value="' + num + '"' + calc + '>' + num + '</option>');
+                    }
+                    
+                    
+                    
+                    return options.join('');
+                },
+                
+                select = '<select class="color_select" rel="'+current+'">' + template_form() + '</select><div class="color_preview" rel="'+current+'"></div>';
+                
+                $('.color_form').html(select);
+                
+                
+                if(selected){
+                        
+                        color = '#' + color_form.colors[value - 1];
+                        $('.color_preview[rel=' + current +']').css({background: color});
+                        
+                }
+                
+                bindPreview();
+                
+                
+            },
+            showTitle = function(x){
+                $('.color_title').html(data.sections[x].title);
+            }
+            cue = function(x){
+                
+                if(x !== undefined){
+                    var curParse = current.split('-'), cur;
+                            curParse = [parseFloat(curParse[0]), parseFloat(curParse[1])];
+                    
+                    
+                    if(x === 0){
+                        if(typeof data.sections[curParse[0]].questions[curParse[1] + 1] === 'string'){
+                            cur = [curParse[0],  curParse[1] + 1];
+                            
+                            //console.log(curParse[0]);
+                        }
+                        else{
+                           if(typeof data.sections[curParse[0] + 1] === 'object' && typeof data.sections[curParse[0] + 1].questions[0] === 'string'){
+                                cur = [curParse[0] + 1,  0];
+                           }
+                           else{
+                                //Show Information Form
+                                console.log(validateColorData());
+                                alert('no more questions');
+                                return false;
+                           }
+                        }
+                        
+                    }
+                    else{
+                        if(typeof data.sections[curParse[0]].questions[curParse[1] - 1] === 'string'){
+                            cur = [curParse[0],  curParse[1] - 1];
+                            
+                            //console.log(curParse[0]);
+                        }
+                        else{
+                           if(typeof data.sections[curParse[0] - 1] === 'object' && typeof data.sections[curParse[0] - 1].questions[data.sections[curParse[0] - 1].questions.length - 1] === 'string'){
+                                cur = [curParse[0] - 1,  data.sections[curParse[0] - 1].questions.length - 1 ];
+                           }
+                           else{
+                                //Show Information Form
+                                alert('cannot go back further');
+                                return false;
+                           }
+                        }
+                        
+                    }
+                }else{
+                    cur = [0,0];
+                }
+                
+                //console.log({x : x, cur: cur});   
+                
+                current = cur[0] + '-' + cur[1];
+                
+                if(cur[1] === 0 || x === 1){
+                    showTitle(cur[0]);
+                }
+                
+                showQuestion(cur[0] , cur[1]);
+                
+                $('.color_current').html(current);
+                
+                return true;
+            
+                
+            }
+            
+            if(current === null){
+                current = '0-0';
+                cue(undefined);
+            }
+        
+            
+         $('.color_next').bind('click', function(){
+        
+            cue(0);
+            
+        });
+         
+         $('.color_back').bind('click', function(){
+        
+            cue(1);    
+            
+        });
+         
+      
+      
+        $('.zoom')
+            .zoomy('hover', {border: '20px solid #fff', zoomSize: 150, glare : false, clickable: true})
+            .bind('click', function(){
+            $('.color_select').find('option').each(function(i){
+                $(this).attr('selected', false);
+                if(i === ZoomyS.currentColor){
+                    //console.log(' '+i);
+                    $(this).prop('selected', true);
+                }
+            });
+            return false;    
+            });
+
+
+    
+    })(jQuery);
+  </script>
+
+
+
