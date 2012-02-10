@@ -112,20 +112,26 @@ var color_form = {
                ]
             },
             {
-               title: 'Future',
+               title: 'FUTURE',
                desc: 'Next Please Choose 4 Colors',
                questions : [
                   'A Color that will elevate your thinking.',
                   'This Color brings understanding.',
                   'Within this Color I feel security.',
                   'My spiritual wisdom, and mental integrity is released through these Colors.',
-                  'I value this Color ',
+                  'I value this Color '
+               ]
+            },
+            {
+                title: 'THIS SPECIAL COLOR SECTION WILL PROVIDE INSIGHT FOR THE FOLLOWING AREAS',
+                desc: 'Next Please Choose 4 Colors',
+                questions : [
                   'INTELLECTUAL ACTIVITY',
                   'PHYSICAL HEALTH',
                   'SPIRITUAL ATTUNEMENT',
                   'EMOTIONAL BALANCE'
-               ]
-            },
+                ]
+            }
         ],
         contact : [
             {
