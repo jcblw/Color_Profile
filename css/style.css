@@ -2,10 +2,14 @@
 /* Pencils Need to be larger */
  
  .wrp{
-        width: 800px;
+        width: 850px;
         padding: 0;
         margin: 0 auto;
         text-align: center;
+    }
+
+    .color_wrp{
+      position: relative;
     }
     
     .img_scroll{
@@ -31,7 +35,26 @@
        margin: 0;
        border: 1px solid #ddd;
        cursor: pointer;
+       position: relative;
      }
+
+      .tool-tip{
+        position: absolute;
+        visibility: hidden;
+        left: 110%;
+        top: 5%;
+        background: #222;
+        padding: 5px;
+        color: #efefef;
+        border-radius: 4px;
+        box-shadow: 0px 1px 1px rgba(0,0,0,.3);
+        display: block;
+        white-space: nowrap;
+      }
+
+      .color_preview:hover .tool-tip{
+        visibility: visible;
+      }
      
      .color_preview.fourth{
        height: 10px;
@@ -103,7 +126,7 @@
        line-height: 15px;
        font-size: 12px;
        font-weight: bold;
-       overflow: hidden;
+       
     }
     
     .overview_question{
@@ -124,4 +147,30 @@
        line-height: 25px;
        
     }
+
+    .button{
+      padding: 0 5px;
+      border-radius: 4px;
+      box-shadow: 0px 1px 1px rgba(0,0,0,.3), inset 0px 30px 30px rgba(255,255,255,1);
+      line-height: 25px;
+      background: #ddd;
+      border: 1px solid #ddd;
+      display: inline-block;
+    }
+
+    .next_section, .next_overview, .next_contact, .prev_section{
+      position: absolute;
+      top: 10px;
+      cursor: pointer;
+    }
+
+    .next_section, .next_overview, .next_contact{
+      right: 10px;
+    }
+
+    .prev_section{
+      left: 10px;
+    }
+
+    
     
